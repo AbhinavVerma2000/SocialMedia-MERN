@@ -1,0 +1,17 @@
+const { register, login, followUser, logout, updatepass, updateProfile, deleteProfile, myProfile, AllUsers, userProfile, forgotPass, resetPass } = require('../controllers/user')
+const { isAuthenticated } = require('../middleware/auth')
+
+const router=require('express').Router()
+router.route('/register').post(register)
+router.route('/login').post(login)
+router.route('/logout').get(logout)
+router.route('/follow/:id').get(isAuthenticated, followUser)
+router.route('/update/password').put(isAuthenticated, updatepass)
+router.route('/update/profile').put(isAuthenticated, updateProfile)
+router.route('/delete/me').delete(isAuthenticated, deleteProfile)
+router.route('/me').get(isAuthenticated, myProfile)
+router.route('/alluser').get(isAuthenticated, AllUsers)
+router.route('/user/:id').get(isAuthenticated, userProfile)
+router.route('/forgotPass').post(forgotPass)
+router.route('/resetPass/:token').put(resetPass)
+module.exports = router
